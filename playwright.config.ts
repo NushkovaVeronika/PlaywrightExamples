@@ -9,4 +9,5 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
     video: 'retain-on-failure',
   },
+  reporter: [['html', { outputFolder: 'playwright-report' }]],
 });
