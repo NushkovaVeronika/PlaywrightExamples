@@ -7,7 +7,7 @@ import { test, expect } from '@playwright/test';
 // 2. wait for the page to load
 // 3. check if the page contains the word 'Playwright'
 
-test('basic test', async ({ page }) => { // defines a test with a name 'basic test'
+test('Should be able to load the homepage and see "Playwright"" ', async ({ page }) => { // defines a test with a name 'basic test'
     await page.goto('https://playwright.dev'); // this opens the url page
     await expect(page).toHaveTitle(/Playwright/); // assert, check if the page has a word 'Playwright'
 });
@@ -16,7 +16,7 @@ test('basic test', async ({ page }) => { // defines a test with a name 'basic te
 // 2. locate the element <header>
 // 3. check if its visible on the page ( if header does not exists, the test will fail)
 
-test('Header is visible on the homepage', async ({ page }) => {
+test('Header should be visible on the homepage', async ({ page }) => {
     await page.goto('https://playwright.dev');
 
     const header = page.locator('header');
@@ -27,7 +27,7 @@ test('Header is visible on the homepage', async ({ page }) => {
 // 2. locate and click on the button 'Get Started'
 // 3. check if the URL is changed 
 
-test('Click on the Get started button', async ({ page }) => {
+test('Should be able to click on the Get started button', async ({ page }) => {
     await page.goto('https://playwright.dev');
     await page.click('text=Get started');
     await expect(page).toHaveURL(/\/docs\/intro/);
@@ -37,7 +37,7 @@ test('Click on the Get started button', async ({ page }) => {
 // 2. click on create an account button
 // 3. check if the URL changed
 
-test('Click on the Create an account button', async ({ page }) => {
+test('Should be able to click on the Create an account button', async ({ page }) => {
     await page.goto('https://magento.softwaretestingboard.com/');
     await page.click('text=Create an Account');
     await expect(page).toHaveURL(/\account\/create/);
@@ -49,7 +49,7 @@ test('Click on the Create an account button', async ({ page }) => {
 // 4. click on the button 'create an account' to register
 // 5. check if the account is succesfully created 
 
-test.only('Create an account', async ({ page }) => {
+test('Should create a new account successfully', async ({ page }) => {
     await page.goto('https://magento.softwaretestingboard.com/');
     await page.click('text=Create an Account');
     await expect(page).toHaveURL(/\account\/create/);
@@ -75,7 +75,7 @@ test.only('Create an account', async ({ page }) => {
 // 5. check if the URL is changed
 // 6. check if there is a "Shorts" word somewhere on the page 
 
-test('Go to the women/bottoms/shorts section', async ({ page }) => {
+test('Should be able to navigate to women/bottoms/shorts section', async ({ page }) => {
     await page.goto('https://magento.softwaretestingboard.com/');
 
     await page.hover('a#ui-id-4');
@@ -95,7 +95,7 @@ test('Go to the women/bottoms/shorts section', async ({ page }) => {
 // 4. click on the add element button 2 times
 // 5. click on the delete button once
 
-test('Add/Remove elements', async ({ page }) => {
+test('Should be able to add and remove elements', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/');
     await page.click('a:has-text("Add/Remove Elements")');
     await expect(page).toHaveURL(/add_remove_elements/);
@@ -110,7 +110,7 @@ test('Add/Remove elements', async ({ page }) => {
 // 2. enter username and password
 // 3. check if there is "Your username is invalid!" message somewhere on the screen
 
-test('Form authentication - invalid login', async ({ page }) => {
+test('Should trigger error on invalid login', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/');
     await page.click('a:has-text("Form Authentication")');
     await page.fill('input[name="username"]', 'Veronika');
@@ -128,22 +128,28 @@ test('Form authentication - invalid login', async ({ page }) => {
 // 3. uncheck the second checkbox
 // 4. check if the first checkbox is selected or not
 
-test('Select/unselect checkboxes', async ({ page }) => {
+test.only('Should be able to select/unselect checkboxes', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/');
     await page.click('a:has-text("Checkboxes")');
 
     const checkbox1 = page.locator('input[type="checkbox"]').nth(0); // 1st checkbox with index 0
     const checkbox2 = page.locator('input[type="checkbox"]').nth(1) // 2nd checkbox with index 1
 
-    if (!(await checkbox1.isChecked())) {
-        await checkbox1.click();
-    }
-    await expect(checkbox1).toBeChecked();
+    await checkbox1.setChecked(true);
+    await(checkbox2).setChecked(true);
 
-    if (!(await checkbox2.isChecked())) {
-        await checkbox2.click();
-    }
+    await expect(checkbox1).toBeChecked();
     await expect(checkbox2).toBeChecked();
+
+    // // if (!(await checkbox1.isChecked())) {
+    // //     await checkbox1.click();
+    // // }
+    // // await expect(checkbox1).toBeChecked();
+
+    // if (!(await checkbox2.isChecked())) {
+    //     await checkbox2.click();
+    // }
+    // await expect(checkbox2).toBeChecked();
 
 });
 
@@ -151,7 +157,7 @@ test('Select/unselect checkboxes', async ({ page }) => {
 // 1. go to the page https://the-internet.herokuapp.com/
 // 2. check if those links exist
 
-test('Check main page links', async ({ page }) => {
+test('Should be visible: main page links', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/');
     await expect(page.locator('a', { hasText: 'Form Authentication' })).toBeVisible();
     await expect(page.locator('a', { hasText: 'Checkboxes' })).toBeVisible();
@@ -165,7 +171,7 @@ test('Check main page links', async ({ page }) => {
 // 2. click on the Dropdown link
 // 3. select option 2
 
-test('Dropdown', async ({ page }) => {
+test('Should be able to select option from dropdown', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/');
     await page.click('a:has-text("Dropdown")');
     await page.selectOption('#dropdown', '2')
@@ -177,7 +183,7 @@ test('Dropdown', async ({ page }) => {
 // 3. Click on the "Click for JS Alert" button
 // 3. check to see if there is a message "I am a JS Alert" on the screen
 
-test('JavaScript Alerts', async({page}) => {
+test('Should trigger JS alert and confirm it', async({page}) => {
     await page.goto('https://the-internet.herokuapp.com/');
     await page.click('a:has-text("JavaScript Alerts")');
     await page.click('button:has-text("Click for JS Alert")');
@@ -192,7 +198,7 @@ test('JavaScript Alerts', async({page}) => {
 // 5. Click on the Add button
 // 6. expect to see a message "It's back!" after adding it again
 
-test('Dynamic Controls', async({page}) => {
+test('Should trigger add/remove checkbox in Dynamic Controls', async({page}) => {
     await page.goto('https://the-internet.herokuapp.com/');
     await page.click('a:has-text("Dynamic Controls")');
     await page.click('button:has-text("Remove")');
