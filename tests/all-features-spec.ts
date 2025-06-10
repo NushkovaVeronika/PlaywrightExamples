@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-// expect - used for assertion if something is true or not
+// expect - used for assertion
 // await -  wait for the page to fully load before we continue 
 
 
@@ -49,7 +49,7 @@ test('Click on the Create an account button', async ({ page }) => {
 // 4. click on the button 'create an account' to register
 // 5. check if the account is succesfully created 
 
-test('Create an account', async ({ page }) => {
+test.only('Create an account', async ({ page }) => {
     await page.goto('https://magento.softwaretestingboard.com/');
     await page.click('text=Create an Account');
     await expect(page).toHaveURL(/\account\/create/);
@@ -64,6 +64,8 @@ test('Create an account', async ({ page }) => {
     await page.fill('input[name="password_confirmation"]', 'TestPassword123!');
 
     await page.click('button[title="Create an Account"]');
+    await expect(page.locator("#message.success")).toHaveText("Thank you for registering with Main Website Store.")
+
 });
 
 // 1. go to the page "https://magento.softwaretestingboard.com/"
@@ -198,3 +200,4 @@ test('Dynamic Controls', async({page}) => {
     await page.click('button:has-text("Add")');
     await expect(page.locator("#message")).toHaveText("It's back!");
 });
+
