@@ -64,7 +64,7 @@ test.only('Create an account', async ({ page }) => {
     await page.fill('input[name="password_confirmation"]', 'TestPassword123!');
 
     await page.click('button[title="Create an Account"]');
-    await expect(page.locator("#message.success")).toHaveText("Thank you for registering with Main Website Store.")
+    await expect(page.locator(".message.success")).toHaveText("Thank you for registering with Main Website Store.")
 
 });
 
