@@ -156,3 +156,45 @@ test.only('Check main page links', async ({ page }) => {
     await expect(page.locator('a', { hasText: 'Dropdown' })).toBeVisible();
 
 });
+
+
+// dropdown 
+// 1. go to the page https://the-internet.herokuapp.com/
+// 2. click on the Dropdown link
+// 3. select option 2
+
+test.only('Dropdown', async ({ page }) => {
+    await page.goto('https://the-internet.herokuapp.com/');
+    await page.click('a:has-text("Dropdown")');
+    await page.selectOption('#dropdown', '2')
+});
+
+// JavaScript alerts
+// 1. go to the page https://the-internet.herokuapp.com/
+// 2. click on the JavaScript Alerts link
+// 3. Click on the "Click for JS Alert" button
+// 3. check to see if there is a message "I am a JS Alert" on the screen
+
+test.only('JavaScript Alerts', async({page}) => {
+    await page.goto('https://the-internet.herokuapp.com/');
+    await page.click('a:has-text("JavaScript Alerts")');
+    await page.click('button:has-text("Click for JS Alert")');
+    await expect(page.locator('#result')).toHaveText('You successfully clicked an alert');
+});
+
+// Dynamic Controls
+// 1. go to the page https://the-internet.herokuapp.com/
+// 2. click on the Dynamic Controls link
+// 3. click on the button Remove
+// 4. expect to see a message "It's gone!" after removing the checbox
+// 5. Click on the Add button
+// 6. expect to see a message "It's back!" after adding it again
+
+test.only('Dynamic Controls', async({page}) => {
+    await page.goto('https://the-internet.herokuapp.com/');
+    await page.click('a:has-text("Dynamic Controls")');
+    await page.click('button:has-text("Remove")');
+    await expect(page.locator("#message")).toHaveText("It's gone!");
+    await page.click('button:has-text("Add")');
+    await expect(page.locator("#message")).toHaveText("It's back!");
+});
