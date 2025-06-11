@@ -6,18 +6,18 @@
 # Error details
 
 ```
-Error: Timed out 5000ms waiting for expect(locator).toContainText(expected)
+Error: Timed out 5000ms waiting for expect(locator).toHaveText(expected)
 
-Locator: locator('div.status.alert.alert-success')
+Locator: locator('div.status.alert-success')
 Expected string: "Success! Your details have been submitted successfully."
 Received string: ""
 Call log:
-  - expect.toContainText with timeout 5000ms
-  - waiting for locator('div.status.alert.alert-success')
+  - expect.toHaveText with timeout 5000ms
+  - waiting for locator('div.status.alert-success')
     9 × locator resolved to <div class="status alert alert-success"></div>
       - unexpected value ""
 
-    at C:\Users\Veronika\Desktop\playwright-examples\tests\Automation Exercise\Contact Us Form\enter-info-upload-files-func.spec.ts:36:66
+    at C:\Users\Veronika\Desktop\playwright-examples\tests\Automation Exercise\Contact Us Form\enter-info-upload-files-func.spec.ts:37:60
 ```
 
 # Page snapshot
@@ -72,14 +72,14 @@ Call log:
   - text: .
 - paragraph: If you have any suggestion areas or improvements, do let us know. We will definitely work on it.
 - paragraph: Thank you
+- insertion:
+  - iframe
 - contentinfo:
   - heading "Subscription" [level=2]
   - textbox "Your email address"
   - button ""
   - paragraph: Get the most recent updates from our site and be updated your self...
   - paragraph: Copyright © 2021 All rights reserved
-- insertion:
-  - iframe
 ```
 
 # Test source
@@ -110,21 +110,22 @@ Call log:
   23 |     await page.fill('input[name="subject"]', 'Test Subject');
   24 |     await page.fill('textarea[name="message"]', 'This is a test message.');
   25 |
-  26 |     const filePath = 'tests/Automation Exercise/Contact Us Form/testfile.txt'
+  26 |     const filePath = './testfile.txt'
   27 |     await page.setInputFiles('input[name="upload_file"]', filePath);
   28 |
-  29 |     await page.locator('input[name="submit"]').click();
+  29 |     // await page.click('input[name="submit"]');
   30 |
-  31 |     page.on('dialog', async dialog => {
-  32 |         expect(dialog.message()).toContain('Success! Your details have been submitted successfully.');
-  33 |     });
-  34 |     await page.waitForTimeout(2000);
-  35 |
-> 36 |     await expect(page.locator('div.status.alert.alert-success')).toContainText('Success! Your details have been submitted successfully.');
-     |                                                                  ^ Error: Timed out 5000ms waiting for expect(locator).toContainText(expected)
-  37 |     
-  38 |     await page.click('button:has-text("Home")');
-  39 |     await expect(page).toHaveURL('https://www.automationexercise.com/');
-  40 |
-  41 | });
+  31 |     await page.locator('input[data-qa="submit-button"]').click();
+  32 |
+  33 |     page.on('dialog', async dialog => {
+  34 |       await dialog.accept();
+  35 |     });
+  36 |
+> 37 |     await expect(page.locator('div.status.alert-success')).toHaveText('Success! Your details have been submitted successfully.');
+     |                                                            ^ Error: Timed out 5000ms waiting for expect(locator).toHaveText(expected)
+  38 |
+  39 |     await page.click('a:has-text("Home")');
+  40 |     await expect(page).toHaveURL('https://www.automationexercise.com/');
+  41 |
+  42 | });
 ```

@@ -23,19 +23,20 @@ test('Should submit a Contact Us form', async({page}) => {
     await page.fill('input[name="subject"]', 'Test Subject');
     await page.fill('textarea[name="message"]', 'This is a test message.');
 
-    const filePath = 'tests/Automation Exercise/Contact Us Form/testfile.txt'
+    const filePath = './testfile.txt'
     await page.setInputFiles('input[name="upload_file"]', filePath);
 
-    await page.locator('input[name="submit"]').click();
+    // await page.click('input[name="submit"]');
+
+    await page.locator('input[data-qa="submit-button"]').click();
 
     page.on('dialog', async dialog => {
-        expect(dialog.message()).toContain('Success! Your details have been submitted successfully.');
+      await dialog.accept();
     });
-    await page.waitForTimeout(2000);
 
-    await expect(page.locator('div.status.alert.alert-success')).toContainText('Success! Your details have been submitted successfully.');
-    
-    await page.click('button:has-text("Home")');
+    await expect(page.locator('div.status.alert-success')).toHaveText('Success! Your details have been submitted successfully.');
+
+    await page.click('a:has-text("Home")');
     await expect(page).toHaveURL('https://www.automationexercise.com/');
 
 });
