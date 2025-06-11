@@ -14,29 +14,28 @@ import { test, expect } from '@playwright/test';
 
 test('Should submit a Contact Us form', async({page}) => {
     await page.goto('https://automationexercise.com/');
+  
     await expect(page.locator('body')).toBeVisible(); 
     await page.click('a:has-text("Contact us")');
     await expect(page.locator('h2', {hasText: 'GET IN TOUCH'})).toBeVisible();
-
-    await page.fill('input[name="name"]', 'VN');
-    await page.fill('input[name="email"]', 'vn@example.com');
-    await page.fill('input[name="subject"]', 'Test Subject');
-    await page.fill('textarea[name="message"]', 'This is a test message.');
-
+    await page.fill('input[data-qa="name"]', 'VN');
+    await page.fill('input[data-qa="email"]', 'vn@example.com');
+    await page.fill('input[data-qa="subject"]', 'Test Subject');
+    await page.fill('textarea[data-qa="message"]', 'This is a test message.');
+  
     const filePath = './testfile.txt'
     await page.setInputFiles('input[name="upload_file"]', filePath);
+  
+    await Promise.all([ 
+    page.waitForEvent('dialog').then(dialog => dialog.accept()),
+    page.click('input[data-qa="submit-button"]')
+    ]);
 
-    // await page.click('input[name="submit"]');
-
-    await page.locator('input[data-qa="submit-button"]').click();
-
-    page.on('dialog', async dialog => {
-      await dialog.accept();
-    });
-
-    await expect(page.locator('div.status.alert-success')).toHaveText('Success! Your details have been submitted successfully.');
+    await page.waitForTimeout(1000);
+    await expect(page.locator('div.status.alert.alert-success')).toBeVisible();
+    await expect(page.locator('div.status.alert.alert-success')).toHaveText('Success! Your details have been submitted successfully.');
 
     await page.click('a:has-text("Home")');
-    await expect(page).toHaveURL('https://www.automationexercise.com/');
+    await expect(page).toHaveURL('https://automationexercise.com/');
 
 });
