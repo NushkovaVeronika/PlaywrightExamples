@@ -18,7 +18,7 @@ import { test, expect } from '@playwright/test';
 // 17. Click 'Delete Account' button
 // 18. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
 
-test('Should be able to register', async ({ page }) => {
+test('Should successfully register a new user', async ({ page }) => {
     await page.goto('https://automationexercise.com/');
     await expect(page.locator('body')).toBeVisible();
     await page.click('a[href="/login"]');
