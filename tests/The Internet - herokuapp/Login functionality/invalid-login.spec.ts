@@ -1,8 +1,5 @@
 import { test, expect } from '@playwright/test';
-// form authentication invalid login check
-// 1. go to the page https://the-internet.herokuapp.com/
-// 2. enter username and password
-// 3. check if there is "Your username is invalid!" message somewhere on the screen
+
 
 test('Should trigger error on invalid login', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/');

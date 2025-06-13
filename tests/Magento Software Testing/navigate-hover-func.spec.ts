@@ -1,11 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-// 1. go to the page "https://magento.softwaretestingboard.com/"
-// 2. hover over the "women" button
-// 3. hover over the "bottoms" button
-// 4. click on the "shorts" button
-// 5. check if the URL is changed
-// 6. check if there is a "Shorts" word somewhere on the page
+
 
 test('Should be able to navigate to women/bottoms/shorts section', async ({ page }) => {
     await page.goto('https://magento.softwaretestingboard.com/');

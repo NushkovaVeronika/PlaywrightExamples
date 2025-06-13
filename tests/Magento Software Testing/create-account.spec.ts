@@ -1,9 +1,5 @@
 import { test, expect } from '@playwright/test';
-// 1. go to the page "https://magento.softwaretestingboard.com/"
-// 2. click on create an account button
-// 3. fill all the empty fields (first name, last name, email, etc...)
-// 4. click on the button 'create an account' to register
-// 5. check if the account is succesfully created 
+
 
 test('Should create a new account successfully', async ({ page }) => {
     await page.goto('https://magento.softwaretestingboard.com/');
