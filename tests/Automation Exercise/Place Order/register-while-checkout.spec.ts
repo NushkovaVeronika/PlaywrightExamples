@@ -77,7 +77,7 @@ test("Should be able to register while checkout", async ({page}) => {
     await page.click('a:has-text("Proceed to checkout")');
     await expect(page.locator(`text = Address Details`)).toBeVisible();
     await expect(page.locator(`text = Review Your Order`)).toBeVisible();
-    await page.fill('textarea[name="message"]', "Random message")
+    await page.fill('textarea[name="message"]', "Random message");
     await page.locator('a[href="/payment"]').click();
 
     const name_on_card = 'Lara Doe';
