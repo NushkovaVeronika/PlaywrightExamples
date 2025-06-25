@@ -16,3 +16,4 @@ test("User should be able to add products to cart from recommended items", async
     await page.click('#cartModal > div > div > div.modal-body > p:nth-child(2) > a > u');
     await expect(page.locator('#cart_info')).toBeVisible();
 }); 
+
