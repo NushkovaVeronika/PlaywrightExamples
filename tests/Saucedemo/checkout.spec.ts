@@ -2,7 +2,7 @@ import { test, expect} from '@playwright/test'
 
 
 
-test("User should be able to proceed and checkout", async ({page}) => {
+test("User should be able to proceed to checkout", async ({page}) => {
     await page.goto("https://www.saucedemo.com/");
     await page.fill('input[data-test="username"]', 'standard_user');
     await page.fill('input[data-test="password"]', 'secret_sauce');
@@ -22,5 +22,5 @@ test("User should be able to proceed and checkout", async ({page}) => {
     await expect(page.locator('#checkout_complete_container > h2')).toBeVisible();
     await page.locator('#back-to-products').click();
     await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
-    
+
 })
