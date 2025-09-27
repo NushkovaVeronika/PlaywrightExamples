@@ -13,4 +13,6 @@ test('User should be able to login', async({page}) => {
     await loginPage.verifyVisibility();
     await loginPage.login('veronika@hotmail.com', 'vnvn123');
     await loginPage.verifyLoggedInAs();
+
+    
 });
