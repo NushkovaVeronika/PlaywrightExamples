@@ -1,7 +1,5 @@
 import { test, expect} from '@playwright/test'
 
-
-
 test("User should be able to filter products by price - low to high", async ({page}) => {
     await page.goto("https://www.saucedemo.com/");
     await page.fill('input[data-test="username"]', 'problem_user');
